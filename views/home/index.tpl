@@ -22,6 +22,17 @@
     <div class="container manual-body">
         <div class="row">
              <div class="manual-list">
+             {{range $itemindex,$itemOne := .Items}}
+               <a href="{{urlfor "ItemsetsController.List" ":key" $item.ItemKey}}" class="ui-card" title="{{$item.ItemName}}">
+                 <div class="header">{{$item.ItemName}}</div>
+                  <div class="description">{{i18n $.Lang "project.prj_amount"}}：{{$item.BookNumber}} &nbsp; {{i18n $.Lang "project.creator"}}：{{$item.CreateName}}<br/> {{i18n $.Lang "project.create_time"}}：{{$item.CreateTimeString}}</div>
+               </a>
+              {{else}}
+                    <div class="search-empty">
+                        <img src="{{cdnimg "/static/images/search_empty.png"}}" class="empty-image">
+                        <span class="empty-text">no data</span>
+                    </div>
+               {{end}}
                 {{range $index,$item := .Lists}}
                     <div class="list-item">
                         <dl class="manual-item-standard">
