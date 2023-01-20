@@ -73,6 +73,7 @@ textarea{
 .manual-reader .slidebar {
     margin: 5px 10px 0 0;
 }
+
 .user-info{
     border: 0;
     background-color: #ffffff;
@@ -238,14 +239,30 @@ textarea{
     top: 34px
 }
 /*************网站首页******************/
+
+.manual-home .navbar-nav li.active a{
+    background-color: #005c10;
+    color: #ffffff;
+}
+
+.manual-home .item-head{
+    margin: 10px auto;
+    padding-bottom: 5px;
+    line-height: 1.5em;
+    border-bottom: 3px solid #EEEEEE;
+}
+.manual-home .item-title{
+    font-size: 22px;
+    font-weight: 300;
+}
 .manual-list{
-    margin: 15px auto;
+    margin: 10px auto;
 }
 .manual-list .list-item{
     float: left;
     padding-left: 15px;
     padding-right: 15px;
-    margin: 18px 0;
+    /*margin: 18px 0;*/
     height: 280px
 }
 .manual-list .list-item .manual-item-standard{
