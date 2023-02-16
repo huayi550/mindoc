@@ -22,9 +22,9 @@ func (c *HomeController) Prepare() {
 	}
 }
 
-func (c *HomeController) Index() {
+func (c *HomeController) List() {
 	c.Prepare()
-	c.TplName = "home/index.tpl"
+	c.TplName = "home/list.tpl"
 
 	pageIndex, _ := c.GetInt("page", 1)
 	pageSize := 18
@@ -48,9 +48,9 @@ func (c *HomeController) Index() {
 	c.Data["Lists"] = books
 }
 
-func (c *HomeController) Overview() {
+func (c *HomeController) Index() {
 	c.Prepare()
-	c.TplName = "home/overview.tpl"
+	c.TplName = "home/index.tpl"
 
 	pageIndex, _ := c.GetInt("page", 1)
 	pageSize := 100

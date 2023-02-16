@@ -13,6 +13,9 @@
                     <li {{if eq .ControllerName "HomeController"}}class="active"{{end}}>
                         <a href="{{urlfor "HomeController.Index" }}" title={{i18n .Lang "common.home"}}>{{i18n .Lang "common.home"}}</a>
                     </li>
+                    <li>
+                        <a href="{{urlfor "HomeController.List" }}" title={{i18n .Lang "common.home_list"}}>{{i18n .Lang "common.home_list"}}</a>
+                    </li>
                     <li {{if eq .ControllerName "BlogController"}}{{if eq  .ActionName "List" "Index"}}class="active"{{end}}{{end}}>
                         <a href="{{urlfor "BlogController.List" }}" title={{i18n .Lang "common.blog"}}>{{i18n .Lang "common.blog"}}</a>
                     </li>
