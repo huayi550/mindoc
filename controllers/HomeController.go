@@ -33,6 +33,32 @@ func (c *HomeController) Index() {
 		memberId = c.Member.MemberId
 	}
 	books, totalCount, err := models.NewBook().FindForHomeToPager(pageIndex, pageSize, memberId)
+
+	if err != nil {
+		logs.Error(err)
+		c.Abort("500")
+	}
+	if totalCount > 0 {
+		pager := pagination.NewPagination(c.Ctx.Request, totalCount, pageSize, c.BaseUrl())
+		c.Data["PageHtml"] = pager.HtmlPages()
+	} else {
+		c.Data["PageHtml"] = ""
+	}
+	c.Data["TotalPages"] = int(math.Ceil(float64(totalCount) / float64(pageSize)))
+	c.Data["Lists"] = books
+}
+
+func (c *HomeController) Overview() {
+	c.Prepare()
+	c.TplName = "home/overview.tpl"
+
+	pageIndex, _ := c.GetInt("page", 1)
+	pageSize := 100
+	memberId := 0
+	if c.Member != nil {
+		memberId = c.Member.MemberId
+	}
+	books, totalCount, err := models.NewBook().FindForHomeToPager(pageIndex, pageSize, memberId)
 	items, itemsErr := models.NewItemsets().FindAll()
 
 	if err != nil || itemsErr != nil {

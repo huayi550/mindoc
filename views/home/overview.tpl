@@ -19,10 +19,21 @@
 <body>
 <div class="manual-reader manual-container">
     {{template "widgets/header.tpl" .}}
-    <div class="container manual-body">
-        <div class="row">
+    <div class="container manual-body manual-home">
+        <ul class="nav navbar-nav" id="item-tab">
+           {{range $itemindex,$itemOne := .Items}}
+                  <li {{if eq $itemindex 0}}class="active"{{else}}{{end}} data-toggle="tab" >
+                       <a href="#{{$itemOne.ItemKey}}" >{{$itemOne.ItemName}}</a>
+                  </li>
+          {{end}}
+        </ul>
+        <div class="clearfix"></div>
+        <div class="tab-content">
+        {{range $itemindex,$itemOne := .Items}}
+          <div class="row tab-pane {{if eq $itemindex 0}}active{{else}}{{end}}" id={{$itemOne.ItemKey}} >
              <div class="manual-list">
-                {{range $index,$item := .Lists}}
+                {{range $index,$item := $.Lists}}
+                   {{if eq $item.ItemId $itemOne.ItemId }}
                     <div class="list-item">
                         <dl class="manual-item-standard">
                             <dt>
@@ -42,11 +53,22 @@
                             </dd>
                         </dl>
                     </div>
+                    {{else}}
+                   {{end}}
                 {{else}}
                     <div class="text-center" style="height: 200px;margin: 100px;font-size: 28px;">{{i18n $.Lang "message.no_project"}}</div>
                 {{end}}
                 <div class="clearfix"></div>
-            </div>
+             </div>
+          </div>
+        {{else}}
+          <div class="search-empty">
+              <img src="{{cdnimg "/static/images/search_empty.png"}}" class="empty-image">
+              <span class="empty-text">no data</span>
+          </div>
+        {{end}}
+        </div>
+        <div class="row">
             <nav class="pagination-container">
                 {{if gt .TotalPages 1}}
                 {{.PageHtml}}
@@ -59,6 +81,12 @@
 </div>
 <script src="{{cdnjs "/static/jquery/1.12.4/jquery.min.js"}}" type="text/javascript"></script>
 <script src="{{cdnjs "/static/bootstrap/js/bootstrap.min.js"}}" type="text/javascript"></script>
+<script type="text/javascript">
+  $('#item-tab a').click(function (e) {
+    e.preventDefault();
+    $(this).tab('show');
+  })
+</script>
 {{.Scripts}}
 </body>
 </html>
