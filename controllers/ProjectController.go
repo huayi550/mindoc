@@ -10,11 +10,11 @@ import (
 	"github.com/mindoc-org/mindoc/utils/pagination"
 )
 
-type HomeController struct {
+type ProjectController struct {
 	BaseController
 }
 
-func (c *HomeController) Prepare() {
+func (c *ProjectController) Prepare() {
 	c.BaseController.Prepare()
 	//如果没有开启匿名访问，则跳转到登录页面
 	if !c.EnableAnonymous && c.Member == nil {
@@ -22,20 +22,19 @@ func (c *HomeController) Prepare() {
 	}
 }
 
-func (c *HomeController) Index() {
+func (c *ProjectController) List() {
 	c.Prepare()
-	c.TplName = "home/index.tpl"
+	c.TplName = "home/list.tpl"
 
 	pageIndex, _ := c.GetInt("page", 1)
-	pageSize := 100
+	pageSize := 18
 	memberId := 0
 	if c.Member != nil {
 		memberId = c.Member.MemberId
 	}
 	books, totalCount, err := models.NewBook().FindForHomeToPager(pageIndex, pageSize, memberId)
-	items, itemsErr := models.NewItemsets().FindAll()
 
-	if err != nil || itemsErr != nil {
+	if err != nil {
 		logs.Error(err)
 		c.Abort("500")
 	}
@@ -47,6 +46,4 @@ func (c *HomeController) Index() {
 	}
 	c.Data["TotalPages"] = int(math.Ceil(float64(totalCount) / float64(pageSize)))
 	c.Data["Lists"] = books
-
-	c.Data["Items"] = items
 }
