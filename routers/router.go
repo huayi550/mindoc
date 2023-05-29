@@ -121,7 +121,7 @@ func init() {
 	})
 
 	web.Router("/", &controllers.HomeController{}, "*:Index")
-	web.Router("/list", &controllers.ProjectController{}, "*:List")
+	web.Router("/classify", &controllers.ClassifyController{}, "*:List")
 
 	web.Router("/login", &controllers.AccountController{}, "*:Login")
 	web.Router("/dingtalk_login", &controllers.AccountController{}, "*:DingTalkLogin")
